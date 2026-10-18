@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Year 10 Commerce – Law Practice Test</title>
+<style>
+:root{--bg:#f4f7fa;--card:#fff;--ink:#17212b;--mute:#5b6773;--line:#d5dde5;--navy:#1f3a5f;--teal:#2a7f8e;--ok:#1d7a46;--okbg:#e3f4ea;--bad:#b3261e;--badbg:#fbe7e5}
+@media(prefers-color-scheme:dark){:root{--bg:#10171e;--card:#18222c;--ink:#e8eef3;--mute:#9aa8b5;--line:#2b3946;--navy:#3d6aa3;--teal:#4fb0c0;--ok:#5fd38d;--okbg:#14301f;--bad:#ff8a80;--badbg:#3a1a18}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+header{background:var(--navy);color:#fff;border-radius:12px;padding:18px 20px;margin-bottom:16px}
+header h1{margin:0 0 4px;font-size:22px}header p{margin:0;opacity:.9;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 14px}
+.bar i{display:block;height:100%;background:var(--teal);width:0;transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;margin-bottom:6px}
+h2{font-size:18px;margin:0 0 14px}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;margin:0 0 9px;font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.why{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:var(--bg);border-left:4px solid var(--teal);font-size:15px}
+button.main{background:var(--navy);color:#fff;border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;margin-top:12px}
+button.alt{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+@media(prefers-color-scheme:dark){button.alt{color:var(--teal);border-color:var(--teal)}}
+.score{font-size:42px;font-weight:700;margin:4px 0}
+.rev{border-top:1px solid var(--line);padding:12px 0;font-size:15px}
+.rev b{display:block;margin-bottom:3px}
+.hide{display:none}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:9}
+.pn{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:18px 20px;max-width:440px;width:100%;max-height:90vh;overflow:auto}
+.pn input{font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%}
+.row{display:flex;gap:8px;margin-bottom:10px}.row input{flex:1}.row button{margin-top:0}
+.opt:disabled{opacity:.55}
+</style>
+</head>
+<body>
+<main>
+<header><h1>Law Practice Test</h1><p id="sub"></p></header>
+<div id="app" class="card"></div>
+</main>
+<script>
+// [question, [options], index of correct option, explanation]
+const Q=[
+["Mia (16) is found with a small pocketknife, admits it and has no prior offences. The offence is too serious for a warning. What is the most likely outcome?",["Formal caution","Prison sentence","Circle sentencing","Supreme Court trial"],0,"A formal caution (from a senior police officer or respected community member) sits above a warning and below a youth justice conference or court. The child must admit the offence."],
+["A child aged 9 commits an offence. What happens?",["Tried in the Children’s Court","Cannot be charged; handled by parents, teachers and professionals","Sent to the District Court","Given doli incapax"],1,"The minimum age of criminal responsibility in NSW is 10, so under-10s cannot be charged."],
+["A sentence aimed at discouraging the offender and others from offending is based on:",["Denunciation","Rehabilitation","Deterrence","Just punishment"],2,"Deterrence discourages the offender (and the community) from reoffending."],
+["A sentence that sends a message that the behaviour is unacceptable is based on:",["Denunciation","Deterrence","Parole","Precedent"],0,"Denunciation: the court publicly condemns the behaviour."],
+["Why does having two houses of parliament help?",["It speeds up law-making","It provides checks and balances","It removes the need for Royal Assent","It replaces the courts"],1,"The upper house can review and reject bills, checking the government."],
+["Where do about 90% of civil cases begin in NSW?",["Local Court","District Court","Supreme Court","High Court"],0,"The Local Court hears civil claims up to $100,000."],
+["The Coroners Court investigates:",["Civil contract disputes","Deaths by unnatural causes and suspected arson","Appeals from the District Court","Youth offences"],1,"The Coroner’s Court is a special Local Court investigating unnatural deaths and suspected arson."],
+["A neighbour’s dog barks all night. Which civil wrong is this most likely?",["Defamation","Trespass","Nuisance","Breach of contract"],2,"Nuisance is unreasonable interference with someone’s enjoyment of their property."],
+["Damaging a person’s reputation with a false statement is:",["Defamation","Negligence","Trespass","Arbitration"],0,"Defamation is a tort protecting reputation."],
+["A 17-year-old signs a contract for essential goods such as food or medical care. The contract is:",["Always void","Enforceable","Only valid with a judge’s approval","Criminal"],1,"Under-18s can be bound by contracts for essentials (food, housing, medical, education)."],
+["What did the Mabo decision do?",["Created the High Court","Expelled the idea of terra nullius from Australian law","Set the age of criminal responsibility","Introduced circle sentencing"],1,"Mabo rejected terra nullius and led to the Native Title Act 1993."],
+["The common law system was introduced to Australia in:",["1788","1900","1901","1987"],0,"English law arrived with settlement in 1788 (First Fleet)."],
+["A High Court decision must be followed by:",["Only the Supreme Court","Only the Local Court","All other Australian courts","No other court"],2,"Every court must follow High Court precedent."],
+["A NSW court considers a UK decision for guidance but chooses not to follow it. This is:",["Binding precedent","Persuasive precedent","Statute law","Royal Assent"],1,"Persuasive precedent may be considered but does not have to be followed."],
+["Jurors are randomly selected from the:",["Electoral roll","Police database","Law Society list","Court staff"],0,"The Jury Act 1977 provides for random selection from the electoral roll."],
+["Under NSW practice, a child charged with a criminal offence:",["Never gets Legal Aid","Always gets Legal Aid for criminal matters","Must pay a barrister","Cannot have a lawyer"],1,"Children always receive Legal Aid for criminal offences."],
+["Jacob is refused Legal Aid because he earns slightly above the threshold. Which test did he fail?",["Merit test","Jurisdiction test","Means test","Fairness test"],2,"The means test looks at whether you earn too much to qualify."],
+["A barrister’s main role is to:",["Give first legal advice and manage files","Represent the client and argue the case in court","Decide the verdict","Issue sentences"],1,"Solicitors are usually first contact; barristers argue in court, especially higher courts."],
+["Who conducts most criminal prosecutions in the District and Supreme Courts?",["The defendant","The Director of Public Prosecutions","The magistrate","Legal Aid"],1,"The Crown is represented by the DPP; police prosecutors appear in the Local Court."],
+["Intensive correction orders are available for sentences of up to how long for a single offence?",["6 months","1 year","2 years","5 years"],2,"ICOs: up to 2 years for a single offence (3 for multiple)."],
+["Community correction orders can be imposed for up to:",["1 year","2 years","3 years","10 years"],2,"CCOs can run up to three years."],
+["A good behaviour bond is:",["A fine paid to the victim","A promise of good behaviour for a set time or forfeit money and face sentencing","Release on parole","A type of arbitration"],1,"If the offender breaches it, they forfeit money and can be sentenced for the original offence."],
+["Public outrage over the death of Thomas Kelly led to:",["The Native Title Act","One-punch (mandatory sentencing) laws","Raising the MACR to 14","Abolishing juries"],1,"The 2014 laws set a minimum of 8 years for fatal one-punch assaults while intoxicated."],
+["On appeal, Kieran Loveridge’s sentence was increased to:",["7 years","10 years","13 years 8 months","25 years"],2,"The appeal increased it to 13 years 8 months, with a 10 years 2 months non-parole period."],
+["The “high degree of confidence” bail test applies to:",["Any adult","Young people charged with certain serious break and enter or motor vehicle offences","Civil defendants","Only murder charges"],1,"The Bail and Crimes Amendment Act 2024 made bail harder for these young people."],
+["The performance crime offence (s154K) covers sharing material that promotes involvement in:",["Fraud","Motor vehicle theft or break and enter","Drink driving","Defamation"],1,"Posting about these offences can add up to 2 years to the penalty."],
+["The International Criminal Court is governed by the:",["Rome Statute","Crimes Act 1900","Native Title Act","Jury Act"],0,"The ICC is the first permanent international criminal court under the Rome Statute."],
+["If Commonwealth and State laws are inconsistent:",["The State law applies","The Commonwealth law applies","Neither applies","The local council decides"],1,"Commonwealth law prevails to the extent of the inconsistency; the High Court settles disputes."],
+["The BOCSAR study found circle sentencing made Aboriginal offenders:",["Twice as likely to go to prison","Half as likely to receive a prison sentence","Equally likely to reoffend","Ineligible for parole"],1,"Offenders were about half as likely to receive a prison sentence and slightly less likely to reoffend."],
+["Which is a feature of First Nations customary law?",["Written in a single national code","Based on oral tradition, kinship and a spiritual connection to land","Enforced by the High Court","Made by Parliament"],1,"Customary law is orally based, built on kinship, ritual and collective ownership of land."],
+["Circle sentencing began in NSW in:",["1788","1993","2002","2014"],2,"The first circle court started in 2002; there are now about 12."],
+["The maximum jail term for most summary offences is generally:",["6 months","2 years","10 years","Life"],1,"Summary offences carry up to 2 years (5 years for multiple offences)."],
+["The actus reus of a crime must be:",["Planned in advance","Voluntary","Witnessed by police","Committed in a public place"],1,"The guilty act must be voluntary; it can also be an omission (failure to act)."],
+["In R v LMW (1999), the child accused was:",["Found not guilty because doli incapax was not rebutted","Sentenced to life","Tried in the High Court","Given a conference"],0,"The prosecution could not prove the child knew the act was seriously wrong."],
+["R v SLD (2002) ended with:",["A caution","A not guilty verdict","A murder conviction and a 20-year sentence with a 10-year non-parole period","A good behaviour bond"],2,"Contrast with LMW: here the child’s intent and understanding were proved."],
+["A common argument for RAISING the minimum age of criminal responsibility is that:",["Children never understand right and wrong","Early contact with the justice system can increase reoffending","Victims do not want punishment","Courts have no power over children"],1,"Brain development, trauma and reoffending risk are common arguments for raising the MACR (to 14)."],
+["A common argument for KEEPING the MACR at 10 is that:",["Doli incapax already protects younger children","Children cannot be held accountable at all","The UN requires 10","Parliament cannot change it"],0,"Supporters also point to victims’ and community expectations of accountability."],
+["A youth justice conference involves:",["Only the judge and a barrister","The offender, victim, police and community agreeing on outcomes","A jury of 12","A fine paid to the court"],1,"Outcomes may include an apology, repairing damage or community service."],
+["Restorative justice mainly focuses on:",["Revenge","Repairing harm caused by the offence","Longer sentences","Banning appeals"],1,"It brings the offender, victim and community together to repair harm."],
+["The main criticism of mandatory sentencing is that it:",["Is too lenient","Removes judicial discretion","Needs a jury","Cannot apply to murder"],1,"Judges cannot tailor the sentence to the offender’s circumstances."],
+["Which right was breached in R v Skaf when jurors ran their own experiments?",["The right to a fair trial","The right to bail","The right to vote","The right to appeal"],0,"Untested evidence the defence could not challenge undermined a fair, open trial."],
+["Which is a negative of juries?",["They reflect community values","They help prevent bias","They can be influenced by media or misconduct","They are randomly selected"],2,"Examples: Facebook research (2014) and jurors playing Sudoku led to aborted trials."],
+["A committal hearing in the Local Court decides:",["The sentence","Whether there is enough evidence for an indictable matter to go to trial","The bail amount","Civil damages"],1,"It decides if the case has enough evidence to proceed to the District or Supreme Court."],
+["The Court of Criminal Appeal is part of the:",["Local Court","District Court","Supreme Court","High Court"],2,"It hears criminal appeals, for example from the District Court."],
+["The Children’s Court deals with offenders aged:",["Under 10","10 to under 18","14 to 21","Any age"],1,"Children’s Court magistrates hear most matters for 10–17 year olds."],
+["Legislation passed by parliament is also called:",["Common law","Statute law","Customary law","Precedent"],1,"Statute law = Acts of Parliament."],
+["The lower house of the NSW Parliament is the:",["Senate","Legislative Council","Legislative Assembly","House of Representatives"],2,"NSW: Legislative Assembly (lower house) and Legislative Council (upper house). Federal: House of Representatives (lower) and Senate (upper)."],
+["In the first reading of a bill:",["The bill is debated in detail","The bill is introduced","The Governor signs it","The upper house rejects it"],1,"It is formally introduced; debate follows at the second reading."],
+["At the second reading, the:",["Minister explains the bill and the house debates it","Governor gives Royal Assent","Jury votes","Bill automatically becomes law"],0,"Committee stage and third reading follow."],
+["The rule of law means:",["Only the government is above the law","Everyone, including the government, is subject to the law","Judges make all laws","Laws never change"],1,"Lady Justice’s blindfold symbolises equal treatment."],
+["A disadvantage of alternative dispute resolution is that it:",["Is always slower than court","May not suit serious or violent matters or unequal power","Costs more than a trial","Sets binding precedent"],1,"ADR is usually faster, cheaper and private, but not suited to every dispute."],
+["The usual outcome (remedy) in a civil case is:",["Prison","Compensation","A criminal record","A caution"],1,"Civil law aims to put the injured party back in their position, usually with money."],
+["Consideration in a contract means:",["Something of value exchanged by each party","A court’s opinion","A jury’s decision","A police caution"],0,"Offer, acceptance and consideration are the elements."],
+["The UN Security Council veto is criticised because it:",["Gives every country a vote","Can let one permanent member block action on crises","Replaces the ICC","Is only used in Australia"],1,"Critics cite Rwanda, Bosnia and Darfur."],,
+["Which statement best describes a value?",["A belief a society regards as important, such as the sanctity of human life","A personal view about right and wrong","A rule made by a court","A punishment set by Parliament"],0,"Values are shared societal beliefs; morals are personal; ethics apply to a group or profession."],
+["Jade finds $100 in the street and hands it to police because she believes keeping it would be wrong. This best illustrates:",["Morals","Precedent","Statute law","Denunciation"],0,"Morals are personal beliefs about right and wrong."],
+["A lawyer refuses to reveal a client’s confidential information because professional conduct rules forbid it. This is an example of:",["Ethics","Customary law","Persuasive precedent","Restorative justice"],0,"Ethics are rules of conduct for a profession or group."],
+["Which statement best distinguishes a law from a rule?",["Laws are enforced by the state and carry legal penalties; rules are not backed by the legal system","Laws are unwritten; rules are written","Laws apply only to adults","Rules are made by Parliament"],0,"School or sporting rules can be enforced by the organisation, but not by the courts."],
+["Which court focuses on rehabilitating offenders whose crimes are linked to drug dependency?",["Drug Court","Coroners Court","Local Court","High Court"],0,"The Drug Court uses treatment-focused programs for eligible offenders."],
+["Which is an example of domestic law?",["Rome Statute","Charter of the United Nations","Crimes Act 1900 (NSW)","A treaty between two countries"],2,"Domestic law is made within one country; the others are international instruments."],
+["Kayla lives hundreds of kilometres from the nearest court and legal service. Which barrier to accessing the legal system does this show?",["Location","Language","Discrimination","Procedure"],0,"Distance can limit access to courts and lawyers, particularly in remote areas."],
+["A 14-year-old with no prior offences swears at a security guard. The most appropriate response is likely a:",["Warning","Youth justice conference","Children’s Court hearing","Supreme Court trial"],0,"Warnings are for minor offences by first-time offenders."],
+["A 12-year-old is charged with an offence. To rebut doli incapax, the prosecution must prove the child:",["Knew the act was seriously wrong, not merely naughty","Was over 10 years old","Was previously cautioned","Has a lawyer"],0,"Children aged 10 to under 14 are presumed incapable of criminal intent unless this is proved."],
+["Which court has the power to hear a murder trial?",["Supreme Court","Local Court","Children’s Court","Coroners Court"],0,"Murder is among the most serious indictable offences, heard in the Supreme Court."],
+["Mei wants to sue for $400,000 for breach of contract. Which court would typically hear it?",["Local Court","District Court","Supreme Court","High Court"],1,"The District Court hears civil claims from $100,001 to $750,000."],
+["A District Court judge is deciding a case with facts similar to a High Court decision. The judge:",["Must follow the High Court decision","May ignore it","Must ask the jury whether to follow it","Needs Parliament’s approval to follow it"],0,"Binding precedent from a higher court must be followed."],
+["Which is an example of common law?",["Felony murder as developed through court decisions","Jury Act 1977","Bail and Crimes Amendment Act 2024","Crimes Act 1900"],0,"Common law is judge-made; the others are statutes."],
+["During a trial, a juror searches online for information about the accused. This is most likely to:",["Undermine the right to a fair trial and risk the trial being aborted","Strengthen the verdict","Be acceptable if the information is public","Reduce the standard of proof"],0,"Untested outside evidence is jury misconduct (see R v Skaf and the 2014 Facebook case)."],
+["A judge believes an offender has good prospects of rehabilitation but must still impose the 8-year minimum under s25A. This best illustrates:",["Removal of judicial discretion","Persuasive precedent","Restorative justice","The merit test"],0,"Mandatory sentencing limits a judge’s ability to tailor a sentence."],
+["Dan sues his neighbour for damaging his fence. Which statement is correct?",["It is a civil case; Dan is the plaintiff; proof is on the balance of probabilities","It is a criminal case; Dan is the prosecutor; proof is beyond reasonable doubt","It is a civil case; Dan is the defendant","It is a criminal case; proof is on the balance of probabilities"],0,"Civil: plaintiff v defendant, balance of probabilities."],
+["A jury has a reasonable doubt about whether the accused committed the offence. The verdict must be:",["Not guilty","Guilty","A retrial","Guilty with a lower sentence"],0,"The prosecution must prove guilt beyond reasonable doubt."],
+["Two neighbours dispute a boundary. A neutral person helps them reach their own agreement without suggesting solutions. This is:",["Mediation","Arbitration","Conciliation","A committal hearing"],0,"A conciliator can suggest solutions; an arbitrator decides."],
+["A business and its supplier agree that an independent expert will decide their dispute and both must follow the decision. This is:",["Arbitration","Mediation","Circle sentencing","Appeal"],0,"Arbitration produces a binding decision."],
+["Sam is charged with a serious criminal offence, has a low income and a reasonable chance of success. Which Legal Aid tests does Sam satisfy?",["Jurisdiction, means and merit","Means only","Merit only","None"],0,"Legal Aid applies the jurisdiction, means and merit tests."],
+["Which sequence shows the correct order of a NSW bill’s passage?",["Introduction, second reading, committee stage, third reading, upper house, Royal Assent","Royal Assent, introduction, third reading, upper house","Second reading, Royal Assent, committee stage, introduction","Third reading, introduction, upper house, committee stage"],0,"After both houses pass it, the Governor gives Royal Assent and it becomes an Act."],
+["A 15-year-old charged with serious motor vehicle theft applies for bail after the 2024 changes. The court must be satisfied there is a:",["High degree of confidence they will comply with bail conditions","Reasonable doubt about guilt","Balance of probabilities of acquittal","Certainty they have no prior offences"],0,"This is the new bail test for certain serious youth offences."],
+["Ravi posts a video boasting about breaking into a car. Under s154K he could face:",["The penalty for the original offence plus up to 2 years","Mandatory life","A fine only","No extra penalty"],0,"The performance crime offence adds up to 2 years."],
+["Which person is most likely eligible for circle sentencing?",["An Aboriginal offender who has pleaded guilty to a local offence","Any adult charged with murder","A civil defendant","A juror"],0,"Circle sentencing is for eligible Aboriginal offenders in participating locations."],
+["Which factor may a judge consider when sentencing?",["A guilty plea","Media pressure","The jury’s opinion on the sentence","The judge’s revenge"],0,"Judges consider the offence, the offender, the victim, guilty pleas and prior convictions."],
+["An offender who has served the non-parole period is released under supervision. This is called:",["Parole","Bail","A caution","Probate"],0,"Parole is release on a promise of good behaviour."],
+["Which is a criticism of Legal Aid?",["People just above the means limit may miss out","It is available to everyone","It only covers civil cases","It does not apply to children"],0,"Legal Aid is government funded and under-resourced."],
+["Which is an indictable offence?",["Armed robbery","Offensive language","Minor assault","Speeding"],0,"Indictable offences are serious (e.g. murder, child abuse, armed robbery)."],
+["Which body settles legal disputes between countries?",["International Court of Justice","International Criminal Court","High Court of Australia","Local Court"],0,"The ICJ (a UN organ) hears disputes between states; the ICC prosecutes individuals."],
+["Which prosecutes individuals for genocide and war crimes?",["International Criminal Court","International Court of Justice","UN Security Council","District Court"],0,"The ICC operates under the Rome Statute."],
+["A newspaper publishes a false claim that a doctor is incompetent, damaging her reputation. The most likely civil claim is:",["Defamation","Negligence","Trespass","Nuisance"],0,"Defamation protects reputation."],
+["A shop leaves a broken step unrepaired and a customer is injured. The most likely civil claim is:",["Negligence","Defamation","Breach of contract","Trespass"],0,"The shop owed a duty of care and failed to take reasonable care."],
+["Alex agrees to sell his bike to Ben for $200 and Ben agrees to pay. The $200 is the:",["Consideration","Offer","Acceptance","Remedy"],0,"Consideration is something of value exchanged by each party."],
+["Aboriginal customary law is best described as:",["Law developed through custom, kinship and tradition, passed on orally","Law made by the High Court","Law passed by the Senate","Law based on written treaties"],0,"There are many nations with variations, but they share an oral, kinship-based tradition."]
+];
+const app=document.getElementById('app');
+document.getElementById('sub').textContent='Year 10 Commerce · Term 2 · '+Q.length+' multiple-choice questions · choose 15, 30 or all · shuffled each attempt';
+const LS='lawRemoved',CODE=3977343546954369;
+const hs=s=>{let a=0xdeadbeef,b=0x41c6ce57;for(let k=0;k<s.length;k++){const c=s.charCodeAt(k);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677)}a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return 4294967296*(2097151&b)+(a>>>0)};
+const gone=()=>{try{return JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){return[]}};
+const setGone=a=>{try{localStorage.setItem(LS,JSON.stringify(a))}catch(e){}};
+const pool=()=>Q.filter(q=>!gone().includes(q[0]));
+const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+let qs=null,i=0,adj=0,unlocked=false,buf='';
+const sc=()=>qs.filter(x=>x.done&&x.right).length+adj;
+function menu(){
+  qs=null;const n=pool().length;
+  app.innerHTML=`<h2>Choose a test length</h2><p style="color:var(--mute)">Questions and answer order are shuffled every time.</p>`+[[15,'Quick (15)'],[30,'Standard (30)'],[n,'Full test ('+n+')']].map(a=>`<button class="opt" data-n="${Math.min(a[0],n)}">${a[1]}</button>`).join('');
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>start(+b.dataset.n));
+}
+function start(n){
+  qs=shuffle(pool()).slice(0,n).map(q=>({id:q[0],q:q[0],o:shuffle(q[1].map((t,k)=>({t,ok:k===q[2]}))),e:q[3],done:false,right:false,chosen:-1}));
+  i=0;adj=0;show();
+}
+function show(){
+  if(i>=qs.length)return finish();
+  const q=qs[i];
+  app.innerHTML=`<div class="meta"><span>Question ${i+1} of ${qs.length}</span><span id="sc">Score: ${sc()}</span></div>
+  <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+  <h2>${esc(q.q)}</h2>
+  <div id="opts">${q.o.map((o,k)=>`<button class="opt" data-k="${k}">${'ABCD'[k]}. ${esc(o.t)}</button>`).join('')}</div>
+  <div id="fb"></div>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+  if(q.done)fb();
+}
+function pick(k){const q=qs[i];if(q.done)return;q.done=true;q.chosen=k;q.right=q.o[k].ok;fb()}
+function fb(){
+  const q=qs[i],btns=[...app.querySelectorAll('.opt')];
+  btns.forEach((b,n)=>{b.disabled=true;b.classList.remove('ok','bad');if(q.o[n].ok||(q.right&&n===q.chosen))b.classList.add('ok');else if(n===q.chosen)b.classList.add('bad')});
+  const last=i===qs.length-1;
+  document.getElementById('fb').innerHTML=`<div class="why"><b>${q.right?'Correct.':'Not quite.'}</b> ${esc(q.e)}</div><button class="main" id="nx">${last?'See results':'Next question'}</button>`;
+  document.getElementById('nx').onclick=()=>{i++;show()};
+  document.getElementById('sc').textContent='Score: '+sc();
+}
+function finish(){
+  const tot=qs.length,done=qs.filter(x=>x.done).length,wrong=qs.filter(x=>x.done&&!x.right),s=Math.max(0,sc()),pct=tot?Math.round(s/tot*100):0;
+  const msg=pct>=85?'Excellent – exam ready.':pct>=65?'Good – review the questions you missed.':'Keep going – revisit the study guide and try again.';
+  app.innerHTML=`<h2>Results</h2><div class="score">${s} / ${tot} (${pct}%)</div><p>${msg}</p>
+  <button class="main" id="again">Try again</button>
+  <h2 style="margin-top:22px">Summary of mistakes${wrong.length?' ('+wrong.length+')':''}</h2>`+
+  (wrong.length?`<p style="color:var(--mute);margin-top:-6px">${wrong.length} of ${done} answered questions were incorrect. Revise these topics:</p>`+wrong.map((w,n)=>`<div class="rev"><b>${n+1}. ${esc(w.q)}</b><div style="color:var(--bad)">Your answer: ${esc(w.o[w.chosen].t)}</div><div style="color:var(--ok)">Correct answer: ${esc(w.o.find(o=>o.ok).t)}</div><span style="color:var(--mute)">${esc(w.e)}</span></div>`).join(''):'<p>No mistakes – great work.</p>');
+  document.getElementById('again').onclick=menu;
+}
+/* ---- admin (type "admin" on an answered question) ---- */
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.key.length!==1)return;
+  buf=(buf+e.key.toLowerCase()).slice(-5);
+  if(buf==='admin'){buf='';openAdmin()}
+});
+function openAdmin(){
+  if(!qs||i>=qs.length||!qs[i].done||document.getElementById('adm'))return;
+  const m=document.createElement('div');m.id='adm';m.className='modal';document.body.appendChild(m);
+  unlocked?panel():gate();
+}
+const closeAdm=()=>{const m=document.getElementById('adm');if(m)m.remove()};
+function gate(){
+  const m=document.getElementById('adm');
+  m.innerHTML=`<div class="pn"><h2>Admin</h2><input id="pw" type="password" placeholder="Passcode" autocomplete="off"><div id="er" style="color:var(--bad);min-height:20px"></div><button class="main" id="go">Unlock</button> <button class="main alt" id="x">Cancel</button></div>`;
+  const go=()=>{if(hs(document.getElementById('pw').value)===CODE){unlocked=true;panel()}else document.getElementById('er').textContent='Incorrect passcode.'};
+  document.getElementById('go').onclick=go;document.getElementById('x').onclick=closeAdm;
+  document.getElementById('pw').onkeydown=e=>{if(e.key==='Enter')go()};document.getElementById('pw').focus();
+}
+function panel(){
+  const m=document.getElementById('adm'),q=qs[i],g=gone().length;
+  m.innerHTML=`<div class="pn"><h2>Admin settings</h2>
+  <p style="margin:0 0 10px;color:var(--mute)">Score: ${sc()} · Question ${i+1} of ${qs.length}</p>
+  <div class="row"><input id="ns" type="number" min="0" value="${sc()}"><button class="main" id="ss">Set score</button></div>
+  <button class="opt" id="mr" ${q.right?'disabled':''}>Mark my answer as correct</button>
+  <button class="opt" id="rt">Remove this question from this test</button>
+  <button class="opt" id="rb">Remove this question from the question bank (this browser)</button>
+  <button class="opt" id="rs" ${g?'':'disabled'}>Restore removed questions (${g})</button>
+  <button class="opt" id="fn">Finish test now</button>
+  <button class="main alt" id="x">Close</button></div>`;
+  const $=id=>document.getElementById(id);
+  $('x').onclick=closeAdm;
+  $('ss').onclick=()=>{const v=parseInt($('ns').value,10);if(isNaN(v))return;adj+=Math.max(0,v)-sc();document.getElementById('sc').textContent='Score: '+sc();panel()};
+  $('mr').onclick=()=>{q.right=true;fb();panel()};
+  $('rt').onclick=()=>{qs.splice(i,1);closeAdm();show()};
+  $('rb').onclick=()=>{setGone(gone().concat(q.id));qs.splice(i,1);closeAdm();show()};
+  $('rs').onclick=()=>{setGone([]);panel()};
+  $('fn').onclick=()=>{closeAdm();finish()};
+}
+menu();
+</script>
+</body>
+</html>
